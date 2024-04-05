@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  backend:
+    build: ./NODE-BACK-SLAMA
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./NODE-BACK-SLAMA/app
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - database
+
+  frontend:
+    build: ./Dashboard
+    ports:
+      - '80:80'
+    volumes:
+      - ./Dashboard:/app
+    depends_on:
+      - backend
+
+  database:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+
